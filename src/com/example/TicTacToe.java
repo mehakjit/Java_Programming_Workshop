@@ -14,7 +14,8 @@ public class TicTacToe {
 	}
 	
 	public static void chooseOption() {
-		
+		System.out.println("To Choose X Press 1"+ "\n" +
+				"To Choose O Press 2");
 		int option = sc.nextInt();
 		if(option == 1) {
 			System.out.println("Congratulations!! You have Chosen X \n" +
@@ -25,7 +26,7 @@ public class TicTacToe {
 		else {
 			System.out.println("Congratulations!! You have Chosen Y \n"
 								+ "Let's Begin");
-				playerOption = 'Y';
+				playerOption = 'O';
 			}
 				
 		}
@@ -44,13 +45,12 @@ public class TicTacToe {
 			else {
 				System.out.println("Position Unavailable");
 			}
+			showBoard();
 		}
 				
 	public static void main(String[] args) {
 		System.out.println("Welcome to Tic Tac Toe");
 		createBoard();
-		System.out.println("To Choose X Press 1"+ "\n" +
-							"To Choose O Press 2");
 		chooseOption();
 		showBoard();
 		move();
