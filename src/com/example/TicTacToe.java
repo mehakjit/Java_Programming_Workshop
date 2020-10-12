@@ -2,8 +2,6 @@ package com.example;
 
 import java.util.Scanner;
 
-import org.graalvm.compiler.hotspot.aarch64.AArch64HotSpotDeoptimizeWithExceptionCallerOp;
-
 public class TicTacToe {
 	public static char[] board = new char[10];
 	public static char playerOption;
@@ -104,21 +102,40 @@ public class TicTacToe {
 
 	public static void computerMove() {
 		boolean moved = false;
-		if (!moved) {
+		for (int i = 1; i < board.length; i++) {
+			if (board[i] == ' ') {
+				board[i] = computerOption;
+				if (!winCondition()) {
+					board[i] = ' ';
+				} else {
+					moved = true;
+					break;
+				}
+			}
+		}
+		if (!moved) 
 			moved = blockOpponent();
-		}
-		if(!moved) {
+		if(!moved) 
 			moved = takeCorner();
-		}
-		if(!moved) {
-			for (int i = 1; i < board.length; i++) {
-				if (board[i] == ' ') {
+		if(!moved)
+			moved = takeCentreOrSide();
+	}
+	public static boolean blockOpponent() {
+		boolean ifMoved = false;
+		for (int i = 1; i < board.length; i++) {
+			if (board[i] == ' ') {
+				board[i] = playerOption;
+				if (!winCondition()) {
+					board[i] = ' ';
+				} else {
 					board[i] = computerOption;
+					ifMoved = true;
 					showBoard();
 					break;
 				}
 			}
 		}
+		return ifMoved;
 	}
 	public static boolean takeCorner() {
 		boolean ifMoved = false;
@@ -131,29 +148,23 @@ public class TicTacToe {
 				showBoard();
 				break;
 			}
-
 		}
 		return ifMoved;
 	}
-	public static boolean blockOpponent() {
-		boolean moved = false;
-		for (int i = 1; i < board.length; i++) {
-			if (board[i] == ' ') {
-				board[i] = playerOption;
-				if (!winCondition()) {
-					board[i] = ' ';
-				} else {
-					board[i] = computerOption;
-					moved = true;
-					showBoard();
-					break;
-				}
-
+	public static boolean takeCentreOrSide() {
+		boolean ifMoved = false;
+		int[] moves = { 5, 2, 4, 6, 8 };
+		for (int i = 0; i < moves.length; i++) {
+			int move = moves[i];
+			if (board[move] == ' ') {
+				board[move] = computerOption;
+				ifMoved = true;
+				showBoard();
+				break;
 			}
 		}
-		return moved;
-	}
-		
+		return ifMoved;
+	}	
 	public static void main(String[] args) {
 		System.out.println("Welcome to Tic Tac Toe");
 		createBoard();
