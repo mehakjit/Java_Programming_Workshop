@@ -109,11 +109,15 @@ public class TicTacToe {
 					board[i] = ' ';
 				} else {
 					moved = true;
+					showBoard();
 					break;
 				}
 			}
 		}
 		if (!moved) {
+			moved = blockOpponent();
+		}
+		if(!moved) {
 			for (int i = 1; i < board.length; i++) {
 				if (board[i] == ' ') {
 					board[i] = computerOption;
@@ -122,6 +126,24 @@ public class TicTacToe {
 				}
 			}
 		}
+	}
+	public static boolean blockOpponent() {
+		boolean moved = false;
+		for (int i = 1; i < board.length; i++) {
+			if (board[i] == ' ') {
+				board[i] = playerOption;
+				if (!winCondition()) {
+					board[i] = ' ';
+				} else {
+					board[i] = computerOption;
+					moved = true;
+					showBoard();
+					break;
+				}
+
+			}
+		}
+		return moved;
 	}
 		
 	public static void main(String[] args) {
