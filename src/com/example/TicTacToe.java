@@ -100,47 +100,61 @@ public class TicTacToe {
 			return false;
 	}
 
-	public static boolean tieCondition() {
-		if (board[1] == board[2]  && board[2] == board[3] && board[3] == board[4] && board[4] == board[5]
-			&& board[5] == board[6] && board[6] == board[7] && board[7] == board[8] && board[8] == board[9] && board[9] != ' ') {
-			return true;
-		}else
-			return false;	
+	public static void computerMove() {
+		boolean moved = false;
+		for (int i = 1; i < 10; i++) {
+			if (board[i] == ' ') {
+				board[i] = computerOption;
+				if (!winCondition()) {
+					board[i] = ' ';
+				} else {
+					moved = true;
+					break;
+				}
+			}
+		}
+		if (!moved) {
+			for (int i = 1; i < board.length; i++) {
+				if (board[i] == ' ') {
+					board[i] = computerOption;
+					showBoard();
+					break;
+				}
+			}
+		}
 	}
-	
+		
 	public static void main(String[] args) {
 		System.out.println("Welcome to Tic Tac Toe");
 		createBoard();
 		chooseOption();
 		showBoard();
+		boolean winState  = false;
 		boolean toss = toss();
-		for (int i = 1; i < 100; i++) {
+		for (int i = 1; i < 10; i++) {
 			if (toss) {
-				if (winCondition()) {
-					System.out.println("Sorry!! Computer Wins");
-					break;
-				}
-				else {
-					System.out.println("Player's Move");
-					move(playerOption);
-					toss = false;
-				}
-			}
-			else {
-				if (winCondition()) {
+				System.out.println("Player's Move");
+				move(playerOption);
+				winState = winCondition();
+				if (winState) {
 					System.out.println("Congratulations!! You Win");
 					break;
 				}
-				else {
-					System.out.println("Computer's Move");
-					move(computerOption);
-					toss = true;
+				toss = false;
+			}
+			else {
+				System.out.println("Computer's Move");
+				computerMove();
+				winState = winCondition();
+				if (winState) {
+					System.out.println("Sorry!! Computer Wins");
+					break;
 				}
+				toss = true;
 			}
-			if (tieCondition()) {
+		}
+			if (!winState) {
 				System.out.println("It's a tie");
-				break;
-			}
 		}
 	}
 }
