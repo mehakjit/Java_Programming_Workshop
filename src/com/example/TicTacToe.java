@@ -109,6 +109,7 @@ public class TicTacToe {
 					board[i] = ' ';
 				} else {
 					moved = true;
+					showBoard();
 					break;
 				}
 			}
@@ -169,8 +170,7 @@ public class TicTacToe {
 		return ifMoved;
 	}
 
-	public static void main(String[] args) {
-		System.out.println("Welcome to Tic Tac Toe");
+	public static void playGame() {
 		createBoard();
 		chooseOption();
 		showBoard();
@@ -200,5 +200,21 @@ public class TicTacToe {
 		if (!winState) {
 			System.out.println("It's a tie");
 		}
+		System.out.println("\n Wanna Play again?? ");
+		System.out.println("Press 1 to play again \n" + "Press any key to exit");
+		int playAgain = sc.nextInt();
+		switch (playAgain) {
+		case 1:
+			playGame();
+			break;
+		default:
+			System.out.println("You have exited the Game");
+			break;
+		}
 	}
+	
+	public static void main(String[] args) {
+		System.out.println("Welcome to Tic Tac Toe");
+		playGame();
+	}	
 }
