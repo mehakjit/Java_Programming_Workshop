@@ -2,6 +2,8 @@ package com.example;
 
 import java.util.Scanner;
 
+import org.graalvm.compiler.hotspot.aarch64.AArch64HotSpotDeoptimizeWithExceptionCallerOp;
+
 public class TicTacToe {
 	public static char[] board = new char[10];
 	public static char playerOption;
@@ -102,20 +104,11 @@ public class TicTacToe {
 
 	public static void computerMove() {
 		boolean moved = false;
-		for (int i = 1; i < 10; i++) {
-			if (board[i] == ' ') {
-				board[i] = computerOption;
-				if (!winCondition()) {
-					board[i] = ' ';
-				} else {
-					moved = true;
-					showBoard();
-					break;
-				}
-			}
-		}
 		if (!moved) {
 			moved = blockOpponent();
+		}
+		if(!moved) {
+			moved = takeCorner();
 		}
 		if(!moved) {
 			for (int i = 1; i < board.length; i++) {
@@ -126,6 +119,21 @@ public class TicTacToe {
 				}
 			}
 		}
+	}
+	public static boolean takeCorner() {
+		boolean ifMoved = false;
+		int[] corners = { 1, 3, 7, 9 };
+		for (int i = 0; i < corners.length; i++) {
+			int corner = corners[i];
+			if (board[corner] == ' ') {
+				board[corner] = computerOption;
+				ifMoved = true;
+				showBoard();
+				break;
+			}
+
+		}
+		return ifMoved;
 	}
 	public static boolean blockOpponent() {
 		boolean moved = false;
