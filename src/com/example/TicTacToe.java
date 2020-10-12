@@ -58,7 +58,7 @@ public class TicTacToe {
 			tempToss = 0;
 			break;
 		}
-		if(tempToss == 1) {
+		if (tempToss == 1) {
 			int option = (int) (Math.random() * 2);
 			if (option == 0) {
 				System.out.println("You can play first You won the toss ");
@@ -85,19 +85,19 @@ public class TicTacToe {
 			showBoard();
 		}
 	}
-	
+
 	public static boolean winCondition() {
-		if ((board[1] == board[2] && board[1] == board[3] && board[1] != ' ') || 
-			(board[4] == board[5] && board[4] == board[6] && board[4] != ' ') || 
-			(board[7] == board[8] && board[7] == board[9] && board[7] != ' ') || 
-			(board[1] == board[4] && board[1] == board[7] && board[1] != ' ') ||
-			(board[2] == board[5] && board[2] == board[8] && board[2] != ' ') ||
-			(board[3] == board[6] && board[3] == board[9] && board[3] != ' ') ||
-			(board[1] == board[5] && board[1] == board[9] && board[1] != ' ') || 
-			(board[3] == board[5] && board[3] == board[7] && board[3] != ' '))	{
-			return true;	
-			}
-			return false;
+		if ((board[1] == board[2] && board[1] == board[3] && board[1] != ' ')
+				|| (board[4] == board[5] && board[4] == board[6] && board[4] != ' ')
+				|| (board[7] == board[8] && board[7] == board[9] && board[7] != ' ')
+				|| (board[1] == board[4] && board[1] == board[7] && board[1] != ' ')
+				|| (board[2] == board[5] && board[2] == board[8] && board[2] != ' ')
+				|| (board[3] == board[6] && board[3] == board[9] && board[3] != ' ')
+				|| (board[1] == board[5] && board[1] == board[9] && board[1] != ' ')
+				|| (board[3] == board[5] && board[3] == board[7] && board[3] != ' ')) {
+			return true;
+		}
+		return false;
 	}
 
 	public static void computerMove() {
@@ -113,13 +113,14 @@ public class TicTacToe {
 				}
 			}
 		}
-		if (!moved) 
+		if (!moved)
 			moved = blockOpponent();
-		if(!moved) 
+		if (!moved)
 			moved = takeCorner();
-		if(!moved)
+		if (!moved)
 			moved = takeCentreOrSide();
 	}
+
 	public static boolean blockOpponent() {
 		boolean ifMoved = false;
 		for (int i = 1; i < board.length; i++) {
@@ -137,6 +138,7 @@ public class TicTacToe {
 		}
 		return ifMoved;
 	}
+
 	public static boolean takeCorner() {
 		boolean ifMoved = false;
 		int[] corners = { 1, 3, 7, 9 };
@@ -151,6 +153,7 @@ public class TicTacToe {
 		}
 		return ifMoved;
 	}
+
 	public static boolean takeCentreOrSide() {
 		boolean ifMoved = false;
 		int[] moves = { 5, 2, 4, 6, 8 };
@@ -164,13 +167,14 @@ public class TicTacToe {
 			}
 		}
 		return ifMoved;
-	}	
+	}
+
 	public static void main(String[] args) {
 		System.out.println("Welcome to Tic Tac Toe");
 		createBoard();
 		chooseOption();
 		showBoard();
-		boolean winState  = false;
+		boolean winState = false;
 		boolean toss = toss();
 		for (int i = 1; i < 10; i++) {
 			if (toss) {
@@ -182,8 +186,7 @@ public class TicTacToe {
 					break;
 				}
 				toss = false;
-			}
-			else {
+			} else {
 				System.out.println("Computer's Move");
 				computerMove();
 				winState = winCondition();
@@ -194,8 +197,8 @@ public class TicTacToe {
 				toss = true;
 			}
 		}
-			if (!winState) {
-				System.out.println("It's a tie");
+		if (!winState) {
+			System.out.println("It's a tie");
 		}
 	}
 }
